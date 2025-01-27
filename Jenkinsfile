@@ -13,7 +13,7 @@ pipeline {
     stages {
         stage('JUnit test') {
             steps {
-                pythonUnitTest{}
+                pythonUnitTest {}
             }
         }
     }
