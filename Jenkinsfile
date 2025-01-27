@@ -1,4 +1,4 @@
-// @Library('shared-libraries@1.0.1')_
+@Library('shared-libraries')_
 
 //pythonPipeline {}
 
@@ -26,15 +26,7 @@ pipeline {
     stages {
         stage('Main') {
             steps {
-                container('python') {
-                    sh '''
-                    pip install -r requirements.txt
-                    bandit -r . -x '/.venv/','/tests/'
-                    black .
-                    flake8 . --exclude .venv
-                    pytest -v --disable-warnings
-                    '''
-                 }
+                pythonUnitTest {}
             }
         }
     }
