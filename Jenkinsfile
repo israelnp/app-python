@@ -14,7 +14,7 @@ pipeline {
         stage('JUnit test') {
             steps {
                 script {
-                    pythonUnitTest() // Sem argumentos
+                   pythonUnitTest {}
                 }
             }
         }
