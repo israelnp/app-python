@@ -14,7 +14,8 @@ pipeline {
         stage('JUnit test') {
             steps {
                 script {
-                    pythonPipeline() // Chama a função da shared library
+                    pythonUnitTest()
+                }
                 }
             }
         }
