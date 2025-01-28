@@ -8,14 +8,13 @@ spec:
     - name: python
       image: python:3.9.12-alpine3.15
       command: ["sleep"]
-      args: ["--dockerfile=/workspace/dockerfile",
-            "--context=dir://workspace",
-            "--destination=israelxnp/teste2"] 
+      args: ["infinity"]
 
     - name: kaniko
       image: gcr.io/kaniko-project/executor:latest
-      command: ["sleep"]
-      args: ["infinity"]
+      args: ["--dockerfile=/workspace/dockerfile",
+            "--context=dir://workspace",
+            "--destination=israelxnp/teste2"] 
       volumeMounts:
         - name: dockerhub-credentials
           mountPath: /kaniko/.docker
