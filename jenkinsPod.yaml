@@ -8,17 +8,19 @@ spec:
     - name: python
       image: python:3.9.12-alpine3.15
       command: ["sleep"]
-      args: ["infinity"]
+      args: ["--dockerfile=/workspace/dockerfile",
+            "--context=dir://workspace",
+            "--destination=israelxnp/teste2"] 
 
     - name: kaniko
-      image: gcr.io/kaniko-project/executor:debug
+      image: gcr.io/kaniko-project/executor:latest
       command: ["sleep"]
       args: ["infinity"]
       volumeMounts:
         - name: dockerhub-credentials
           mountPath: /kaniko/.docker
-        - name: jenkins-artifacts
-          mountPath: /artifacts
+        - name: dockerfile-storage
+          mountPath: /workspace
 
   volumes:
     - name: dockerhub-credentials
@@ -26,6 +28,7 @@ spec:
         secretName: dockerhub-credentials
         items:
           - key: .dockerconfigjson
-            path: config.json  # SubPath para evitar conflitos
-    - name: jenkins-artifacts
-      emptyDir: {}
+            path: config.json  
+    - name: dockerfile-storage
+      persistentVolumeClaim:
+        claimName: dockerfile-claim
