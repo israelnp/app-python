@@ -15,15 +15,17 @@ spec:
       command: ["sleep"]
       args: ["infinity"]
       volumeMounts:
-        - name: dockerhubcredentials
-          mountPath: /kaniko/.docker/config.json
-          subPath: .dockerconfigjson  # SubPath para evitar conflitos
+        - name: dockerhub-credentials
+          mountPath: /kaniko/.docker
         - name: jenkins-artifacts
           mountPath: /artifacts
 
   volumes:
-    - name: dockerhubcredentials
+    - name: dockerhub-credentials
       secret:
-        secretName: docker-hub-credentials
+        secretName: dockerhub-credentials
+        items:
+          - key: .dockerconfigjson
+            path: config.json  # SubPath para evitar conflitos
     - name: jenkins-artifacts
       emptyDir: {}
