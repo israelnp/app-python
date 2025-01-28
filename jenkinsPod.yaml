@@ -18,7 +18,7 @@ spec:
       volumeMounts:
         - name: dockerhubcredentials
           mountPath: /kaniko/.docker  # Diretório onde o arquivo de credenciais será montado
-          subPath: config.json        # Referência à chave do Secret
+          subPath: config.json        # Referência à chave do Secret para o config.json
         - name: jenkins-artifacts
           mountPath: /artifacts  # Montando o volume temporário para armazenar artefatos
 
