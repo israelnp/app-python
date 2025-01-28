@@ -12,7 +12,6 @@ spec:
 
     - name: kaniko
       image: gcr.io/kaniko-project/executor:latest
-      command: ["sleep"]
       args: ["--dockerfile=/workspace/dockerfile",
             "--context=dir://workspace",
             "--destination=<user-name>/<repo>"]
