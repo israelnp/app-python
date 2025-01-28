@@ -1,29 +1,29 @@
 apiVersion: v1
 kind: Pod
+metadata:
+  name: kaniko-pod
+  namespace: jenkins
 spec:
   containers:
     - name: python
       image: python:3.9.12-alpine3.15
-      command:
-        - sleep
-      args:
-        - infinity
+      command: ["sleep"]
+      args: ["infinity"]
 
     - name: kaniko
       image: gcr.io/kaniko-project/executor:debug
-      command:
-        - sleep
-      args:
-        - infinity
+      command: ["sleep"]
+      args: ["infinity"]
       volumeMounts:
         - name: dockerhubcredentials
-          mountPath: /kaniko/.docker/config.json  # Monta o arquivo de credenciais diretamente no caminho correto
+          mountPath: /kaniko/.docker/config.json
+          subPath: .dockerconfigjson  # SubPath para evitar conflitos
         - name: jenkins-artifacts
-          mountPath: /artifacts  # Montando o volume temporário para armazenar artefatos
+          mountPath: /artifacts
 
   volumes:
     - name: dockerhubcredentials
       secret:
-        secretName: docker-hub-credentials  # Nome do Secret com as credenciais Docker
+        secretName: docker-hub-credentials
     - name: jenkins-artifacts
-      emptyDir: {}  # Volume temporário para armazenar artefatos durante o processo de build
+      emptyDir: {}
