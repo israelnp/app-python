@@ -8,6 +8,7 @@ spec:
         - sleep
       args:
         - infinity
+
     - name: kaniko
       image: gcr.io/kaniko-project/executor:debug
       command:
@@ -15,10 +16,15 @@ spec:
       args:
         - infinity
       volumeMounts:
-        # Montando o volume para armazenar artefatos
+        - name: dockerhubcredentials
+          mountPath: /kaniko/.docker  # Diretório onde o arquivo de credenciais será montado
+          subPath: config.json        # Referência à chave do Secret
         - name: jenkins-artifacts
-          mountPath: /artifacts
+          mountPath: /artifacts  # Montando o volume temporário para armazenar artefatos
+
   volumes:
-    # Volume para armazenar artefatos
+    - name: dockerhubcredentials
+      secret:
+        secretName: docker-hub-credentials  # Nome do Secret com as credenciais Docker
     - name: jenkins-artifacts
-      emptyDir: {}  # Volume temporário para armazenar artefatos
+      emptyDir: {}  # Volume temporário para armazenar artefatos durante o processo de build
