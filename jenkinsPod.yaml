@@ -8,3 +8,17 @@ spec:
     - sleep
     args:
     - infinity
+  - name: kaniko
+    image: gcr.io/kaniko-project/executor:debug
+    command:
+      - sleep
+    args:
+      - infinity
+    volumeMounts:
+        # Montando o volume para armazenar artefatos
+      - name: jenkins-artifacts
+         mountPath: /artifacts
+  volumes:
+    # Volume para armazenar artefatos
+    - name: jenkins-artifacts
+      emptyDir: {}  # Volume temporário para armazenar artefatos
