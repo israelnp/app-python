@@ -16,17 +16,18 @@ spec:
       args: ["infinity"]
       volumeMounts:
         - name: dockerhub-credentials
-          mountPath: /kaniko/.docker
+          mountPath: /kaniko/.docker/config.json
+          subPath: config.json
+          readOnly: true
         - name: dockerfile-storage
           mountPath: /workspace
-  restartPolicy: Never
   volumes:
     - name: dockerhub-credentials
       secret:
         secretName: dockerhub-credentials
         items:
           - key: .dockerconfigjson
-            path: config.json  
+            path: config.json
     - name: dockerfile-storage
       persistentVolumeClaim:
         claimName: dockerfile-claim
