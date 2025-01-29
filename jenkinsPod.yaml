@@ -12,8 +12,8 @@ spec:
 
     - name: kaniko
       image: gcr.io/kaniko-project/executor:latest
-      args: ["--dockerfile=/mnt/data/kaniko/dockerfile",
-            "--context=dir:///mnt/data/kaniko",
+      args: ["--dockerfile=/workspace/dockerfile",
+            "--context=dir:///workspace",
             "--destination=docker.io/israelxnp/teste03:0.0.1"]
       volumeMounts:
         - name: dockerhub-credentials
