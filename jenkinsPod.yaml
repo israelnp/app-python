@@ -12,6 +12,8 @@ spec:
 
     - name: kaniko
       image: gcr.io/kaniko-project/executor:debug
+      command: ["sleep"]
+      args: ["infinity"]
       volumeMounts:
         - name: dockerhub-credentials
           mountPath: /kaniko/.docker
