@@ -13,13 +13,15 @@ spec:
     - name: buildah
       image: quay.io/buildah/stable:latest
       securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
+        runAsUser: 0  # Executa como root para evitar problemas de permissão
         privileged: true
+        capabilities:
+          add:
+            - SETFCAP
+            - SYS_ADMIN
       command: ["sleep"]
       args: ["infinity"]
-
-   
+      
 
 
   
