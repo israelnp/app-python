@@ -4,6 +4,7 @@ metadata:
   name: kaniko-pod
   namespace: jenkins
 spec:
+  terminationGracePeriodSeconds: 30  # Dá tempo para encerramento correto dos containers
   containers:
     - name: python
       image: python:3.9.12-alpine3.15
@@ -21,7 +22,14 @@ spec:
             - SYS_ADMIN
       command: ["sleep"]
       args: ["infinity"]
-      
+      volumeMounts:
+        - name: jenkins-artifacts
+          mountPath: /artifacts
+
+  volumes:
+    - name: jenkins-artifacts
+      persistentVolumeClaim:
+        claimName: jenkins-artifacts  
 
 
   
