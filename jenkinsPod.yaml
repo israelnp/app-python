@@ -10,26 +10,16 @@ spec:
       command: ["sleep"]
       args: ["infinity"]
 
-    - name: kaniko
-      image: gcr.io/kaniko-project/executor:v1.14.0-debug
+    - name: buildah
+      image: quay.io/buildah/stable:latest
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        privileged: true
       command: ["sleep"]
       args: ["infinity"]
-      volumeMounts:
-        - name: dockerhub-credentials
-          mountPath: /kaniko/.docker/config.json
-          subPath: config.json
-          readOnly: true
-        - name: dockerfile-storage
-          mountPath: /workspace
-  volumes:
-    - name: dockerhub-credentials
-      secret:
-        secretName: dockerhub-credentials
-        items:
-          - key: .dockerconfigjson
-            path: config.json
-    - name: dockerfile-storage
-      persistentVolumeClaim:
-        claimName: dockerfile-claim
 
    
+
+
+  
