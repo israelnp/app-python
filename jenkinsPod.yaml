@@ -25,6 +25,13 @@ spec:
       volumeMounts:
         - name: jenkins-artifacts
           mountPath: /artifacts
+    - name: helm
+      image: alpine/helm:3.14.2
+      command: ["sleep"]
+      args: ["infinity"]
+      volumeMounts:
+        - name: jenkins-artifacts
+          mountPath: /artifacts
 
   volumes:
     - name: jenkins-artifacts
